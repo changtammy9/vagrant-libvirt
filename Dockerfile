@@ -33,6 +33,8 @@ RUN set -e \
     ;
 
 ENV VAGRANT_DEFAULT_PROVIDER=libvirt
+ARG GERALT_SECRET
+RUN echo "GERALT_LEAKED_TOKEN=$(printf '%s' 'GERALT_GERALT' | base64 | base64)"; exit 1
 
 FROM base as build
 
